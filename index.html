@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<title>文章比較ツール</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/cosmo/bootstrap.min.css"/>
+<style>
+.deleted {
+	background-color: lightblue;
+	text-decoration: line-through;
+}
+.equal {
+}
+.added {
+	background-color: lightpink;
+}
+.label.deleted,
+.label.added {
+	color: black;
+	text-decoration: none;
+}
+.result {
+	margin-bottom: 100px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="page-header">
+<h1>文章比較ツール</h1>
+<p class="lead">新旧の文章を比較し、差分を表示します。</p>
+</header>
+
+<div class="row">
+<div class="col-md-6">
+<h3>新文</h3>
+<textarea data-bind="value: newText" rows="12" class="form-control source"></textarea>
+<span class="label"><span data-bind="text: newLength"></span> 文字</span>
+</div>
+<div class="col-md-6">
+<h3>旧文</h3>
+<textarea data-bind="value: oldText" rows="12" class="form-control source"></textarea>
+<span class="label"><span data-bind="text: oldLength"></span> 文字</span>
+</div>
+</div>
+
+<div><img alt="↓" src="arrow_down_1.png" class="center-block" /></div>
+
+<div class="row">
+<div class="col-md-6">
+<h3>
+    追加された文字
+    <span class="label added"><span data-bind="text: addedLength"></span></span>
+</h3>
+<div class="result" data-bind="foreach: differences"><!--
+--><span data-bind="if: added" class="added"><!--
+--><span data-bind="text: text, attr: {title: positionInNew.first+' - '+positionInNew.last+' 文字目'}"></span><!--
+--></span><!--
+--><span data-bind="if: equal" class="equal"><span data-bind="text: text"></span></span><!--
+--></div>
+</div>
+<div class="col-md-6">
+<h3>
+    削除された文字
+    <span class="label deleted"><span data-bind="text: deletedLength"></span></span>
+</h3>
+<div class="result" data-bind="foreach: differences"><!--
+--><span data-bind="if: deleted" class="deleted"><!--
+--><span data-bind="text: text, attr: {title: positionInOld.first+' - '+positionInOld.last+' 文字目'}"></span><!--
+--></span><!--
+--><span data-bind="if: equal" class="equal"><span data-bind="text: text"></span></span><!--
+--></div>
+</div>
+</div>
+
+<footer>
+<div>&copy; hidetake.org, 2011-2014.</div>
+<div>This service uses <a href="http://code.google.com/p/google-diff-match-patch/">Google Diff Match Patch</a> library.</div>
+</footer>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
+<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+<script src="app.js"></script>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-3232369-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
